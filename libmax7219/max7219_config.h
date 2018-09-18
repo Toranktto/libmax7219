@@ -25,6 +25,9 @@
  *
  */
 
+#ifndef _MAX7219_CONFIG_H
+#define _MAX7219_CONFIG_H
+
 /* Example configuration */
 
 #define MAX7219_DEVICES 4
@@ -40,3 +43,5 @@
 #define MAX7219_CLK_PORT PORTB
 #define MAX7219_CLK_DDR DDRB
 #define MAX7219_CLK PB3
+
+#endif

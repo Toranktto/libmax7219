@@ -1,3 +1,3 @@
 ## libmax7219
 
-AVR library to interface with MAX7219 devices.
+Library for AVR microcontrollers for controlling MAX7219/MAX7221 devices.

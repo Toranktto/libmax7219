@@ -33,6 +33,8 @@
 #include <avr/io.h>
 #include <avr/pgmspace.h>
 
+#include "max7219_config.h"
+
 #define MAX7219_REG_NOP 0x00
 #define MAX7219_REG_DIG0 0x01
 #define MAX7219_REG_DIG1 0x02
@@ -48,8 +50,6 @@
 #define MAX7219_REG_POWER 0x0C
 #define MAX7219_REG_DISPLAYTEST 0x0F
 
-#include "max7219_config.h"
-
 struct max7219_char {
 	uint8_t ascii;
 	uint8_t bitmap[8];
@@ -57,26 +57,23 @@ struct max7219_char {
 
 typedef uint32_t max7219_addr;
 
-extern uint8_t max7219_buf[];
-extern const struct max7219_char MAX7219_CHAR_TABLE[];
-
 void max7219_send(max7219_addr addr, uint8_t reg, uint8_t value);
 
-void max7219_set_decode(max7219_addr addr, uint8_t value);
-void max7219_set_intensity(max7219_addr addr, uint8_t value);
-void max7219_set_scanlimit(max7219_addr addr, uint8_t value);
-void max7219_set_power(max7219_addr addr, uint8_t value);
-void max7219_set_displaytest(max7219_addr addr, uint8_t value);
+#define max7219_set_decode(x, y) max7219_send(x, MAX7219_REG_DECODE, y)
+#define max7219_set_intensity(x, y) max7219_send(x, MAX7219_REG_INTENSITY, y)
+#define max7219_set_scanlimit(x, y) max7219_send(x, MAX7219_REG_SCANLIMIT, y)
+#define max7219_set_power(x, y) max7219_send(x, MAX7219_REG_POWER, y)
+#define max7219_set_displaytest(x, y) max7219_send(x, MAX7219_REG_DISPLAYTEST, y)
 
-void max7219_clear(max7219_addr addr);
-void max7219_write_bitmap(max7219_addr addr, uint8_t bitmap[8]);
-void max7219_negative(max7219_addr addr);
+void max7219_clear(max7219_addr);
+void max7219_write_bitmap(max7219_addr, uint8_t *);
+void max7219_negative(max7219_addr);
 
-void max7219_refresh(max7219_addr addr);
+void max7219_refresh(max7219_addr);
 void max7219_refresh_all(void);
 
-void max7219_putc(max7219_addr addr, char c);
-void max7219_puts(char *str);
+void max7219_putc(max7219_addr, char);
+void max7219_puts(char *);
 
 void max7219_init(void);
 
