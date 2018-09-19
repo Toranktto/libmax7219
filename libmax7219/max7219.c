@@ -54,8 +54,8 @@ max7219_send(max7219_addr addr, uint8_t reg, uint8_t value)
 
 	MAX7219_CS_PORT &= ~(1 << MAX7219_CS);
 
-	for (i = MAX7219_DEVICES * 2; i > 0; --i) {
-		for (j = 8; j > 0; --j) {
+	for (i = MAX7219_DEVICES * 2; i > 0; i--) {
+		for (j = 8; j > 0; j--) {
 			MAX7219_CLK_PORT &= ~(1 << MAX7219_CLK);
 
 			if (buf[i - 1] & (1 << (j - 1))) {
@@ -83,10 +83,7 @@ max7219_write_bitmap(max7219_addr addr, uint8_t * bitmap)
 void
 max7219_clear(max7219_addr addr)
 {
-	uint8_t		i;
-
-	for (i = 0; i < 8; ++i)
-		max7219_screen[addr * 8 + i] = 0x00;
+	memset(max7219_screen + (addr * 8), 0x00, 8);
 }
 
 void
